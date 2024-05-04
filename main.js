@@ -53,17 +53,17 @@ const renderToDom = (divId, htmlToRender) => {
 
 const cardsOnDom =(students) => {
   let domString = " ";
-  for (const student of students) {
+  students.forEach((student) => {
     domString += `<div class="card" style="width:18rem;">
     <div class="card-body">
 
     <p class="card-text">${student.name}</p>
-    <button class="btn btn-danger" id="delete--${student.id}">Expel</button>
+    <button class="btn btn-danger" id="delete--${student.Id}">Expel</button>
       </div>
     </div>`;
-  }
+  })
 
-  renderToDom("#app", domString);
+  renderToDom(divId, domString);
 
 }
 
@@ -71,8 +71,8 @@ const cardsOnDom =(students) => {
 const filter = (students, house) => {
   const studentHouse =[];
 
-  student.forEach((house) =>{
-    if(student.house === house ){
+  students.forEach((house) =>{
+    if(students.house === house ){
       studentHouse.push(house);
     }
   });
@@ -114,46 +114,46 @@ const gryffindorBtn = document.querySelector("#grybtn");
 
 
 studentBtn.addEventListener("click", () =>{
-  studentsOnDom(students)
+  cardsOnDom(students)
 });
 
 slytherinBtn.addEventListener("click", () =>{
-  studentsOnDOm(students)
+  cardsOnDOm(students)
 });
 
 ravenclawBtn.addEventListener("click", () =>{
-  studentsOnDom(students)
+  cardsOnDom(students)
 });
 
 hufflepuffBtn.addEventListener("click", () =>{
-  studentsOnDom(students)
+  cardsOnDom(students)
 });
 
 gryffindorBtn.addEventListener("click", () =>{
-  studentsOnDOm(students)
-})
+  cardsOnDOm(students)
+});
 
 
 // add event to filter
 
 slytherinBtn.addEventListener("click", () =>{
   const slyHouse = filter(students, "Slytherin");
-  studentsOnDOm(slyHouse);
+  cardsOnDOm(slyHouse);
 });
 
 ravenclawBtn.addEventListener("click", () =>{
   const ravHouse = filter(students, "Ravenclaw");
-  studentsOnDOm(ravHouse);
+  cardsOnDOm(ravHouse);
 });
 
 hufflepuffBtn.addEventListener("click", () =>{
   const hufHouse = filter(students, "Hufflepuff");
-  studentsOnDOm(hufHouse);
+  cardsOnDOm(hufHouse);
 });
 
 gryffindorBtn.addEventListener("click", () =>{
   const gryHouse = filter(students, "Gryffindor");
-  studentsOnDOm(gryHouse);
+  cardsOnDOm(gryHouse);
 });
 
 // Add an event listener for the form submit and pass it the function (callback)
