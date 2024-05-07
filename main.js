@@ -48,7 +48,20 @@ const renderToDom = (divId, htmlToRender) => {
 
 // get the cards on the DOM
 
+const expelCardsOnDom = (array) => {
+  let domString = "";
+  console.log("array", array)
+  for (const student of array) {
+    domString += `<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <p class="card-text">${student.name}</p>
+      <button class="btn btn-danger" id="expel--${student.id}">Expel</button>
+    </div>
+  </div>`;
+  }
+ renderToDom("#expel", domString);
 
+}
 const cardsOnDom = (array) => {
   let domString = "";
   console.log("array", array)
@@ -60,7 +73,8 @@ const cardsOnDom = (array) => {
     </div>
   </div>`;
   }
-  renderToDom("#students", domString);
+  
+ renderToDom("#students", domString);
 }
 // filter students by house
 const filter = (students, house) => {
@@ -112,7 +126,7 @@ const gryffindorBtn = document.querySelector("#grybtn");
 
 
 studentBtn.addEventListener("click", () =>{
-  cardsOnDom(student)
+  cardsOnDom(students)
 });
 
 // add event to filter
@@ -120,14 +134,14 @@ studentBtn.addEventListener("click", () =>{
 slytherinBtn.addEventListener("click", () =>{
   const slyHouse = filter(students, "Slytherin");
   console.log("slytherin", slyHouse)
-  cardsOnDom(slyHouse, "#students");
+  cardsOnDom(slyHouse);
 
 
 });
 
 ravenclawBtn.addEventListener("click", () =>{
   const ravHouse = filter(students, "Ravenclaw");
-  cardsOnDom(ravHouse, "#students");
+  cardsOnDom(ravHouse);
   console.log(" hello",ravHouse);
   
 });
@@ -135,13 +149,13 @@ ravenclawBtn.addEventListener("click", () =>{
 hufflepuffBtn.addEventListener("click", () =>{
   const hufHouse = filter(students, "Hufflepuff");
   console.log("huffle", hufHouse);
-  cardsOnDom(hufHouse, "#students");
+  cardsOnDom(hufHouse);
 });
 
 gryffindorBtn.addEventListener("click", () =>{
   const gryHouse = filter(students, "Gryffindor");
   console.log("gryffindor", gryHouse);
-  cardsOnDom(gryHouse, "#students");
+  cardsOnDom(gryHouse);
 });
 
 // Add an event listener for the form submit and pass it the function (callback)
@@ -166,20 +180,20 @@ const expelbtn =document.querySelector("#students");
 // Add an event listener to capture clicks
 expelbtn.addEventListener('click', (e) =>{
   // console.log(e.target.id);
-
+let expelStudents =[]
   // check e.target.id includes "delete"
-  if(e.target.id.includes("delete")) {
+  if(e.target.id.includes("expel")) {
     const[, id] = e.target.id.split("--");
 
 // add logic to remove from array
 // .findIndex is an array method
-const index = students.findIndex(e => webkitURL.id === Number(id));
+const index = students.findIndex(e => e.id === Number(id));
 
 // splice modifies the original array
 students.splice(index, 1);
 
 //Repaint the DOM with the updated array
-cardsOnDom(students, "#students");
+expelCardsOnDom(students);
   }
 });
 
