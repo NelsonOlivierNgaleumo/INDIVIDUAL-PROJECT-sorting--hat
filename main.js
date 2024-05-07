@@ -1,75 +1,67 @@
 console.log("Lets do it!!");
 const students = [
   {
-    Id: 1,
+    id: 1,
     name:"Paul Nguepi",
     house: "Gryffindor",
   },
 
   {
-    Id:2,
+    id:2,
     name: "Harry Porter",
     house:"Ravenclaw",
 
   },
   {
-    Id:3,
+    id:3,
     name: "Stephane Sciffles",
     house: "Gryffindor",
   },
 
   {
-    Id:4,
+    id:4,
     name: "Nelson Olivier",
     house: "Slytherin",
   },
   {
-    Id:5,
+    id:5,
     name: "Steve Noubeu",
     house: "Hufflepuff",
   },
   {
-    Id:6,
+    id:6,
     name: "Kalu Peace",
     house: "Ravenclaw",
 
   }
 ];
-// array for expelled students
-const expel = [ {
-  Id: 100,
-  name: "Moldy Voldy",
-  house: "A Voldy Moldy One"
-}]; 
 
 
 // Render to DOM utility function
 
 const renderToDom = (divId, htmlToRender) => {
+  console.log("divId", divId)
+  console.log("htmlToRender", htmlToRender)
   const selectedDiv = document.querySelector(divId);
-  selectedDiv.innnerHTML = htmlToRender;
+  selectedDiv.innerHTML = htmlToRender;
 };
 
 // get the cards on the DOM
 
-const cardsOnDom =(students, divId) => {
- console.log("divId", divId);
-  let domString = " ";
-  students.forEach((student) => {
-    console.log("student", student);
-    domString += `<div class="card" style="width:18rem;">
+
+const cardsOnDom = (array) => {
+  let domString = "";
+  console.log("array", array)
+  for (const student of array) {
+    domString += `<div class="card" style="width: 18rem;">
     <div class="card-body">
-
-    <p class="card-text">${student.name}</p>
-    <button class="btn btn-danger" id="delete--${student.Id}">Expel</button>
-      </div>
-    </div>`;
-  })
-
-  renderToDom(divId, domString);
-
+      <p class="card-text">${student.name}</p>
+      <button class="btn btn-danger" id="expel--${student.id}">Expel</button>
+    </div>
+  </div>`;
+  }
+  renderToDom("#students", domString);
 }
-
 // filter students by house
 const filter = (students, house) => {
   const filterStudent =[];
@@ -100,13 +92,14 @@ const createStudent = (e) => {
   e.preventDefault(); 
 
   const newStudentObj ={
-    Id: students.length + 1,
+    id: students.length + 1,
     name: document.querySelector("#name").value,
     house: houses[Math.floor(Math.random()*4)]
   }
 
   students.push(newStudentObj);
-  cardsOnDom(students, "#students")
+  console.log(students)
+  cardsOnDom(students)
   form.reset();
 }
 //add event listener for each button
@@ -118,9 +111,9 @@ const hufflepuffBtn = document.querySelector("#hufbtn");
 const gryffindorBtn = document.querySelector("#grybtn");
 
 
-// studentBtn.addEventListener("click", () =>{
-//   cardsOnDom(student)
-// });
+studentBtn.addEventListener("click", () =>{
+  cardsOnDom(student)
+});
 
 // add event to filter
 
@@ -191,7 +184,7 @@ cardsOnDom(students, "#students");
 });
 
 const startApp =() => {
-  cardsOnDom(students, "#students");
+  cardsOnDom(students);
   // events(); // ALWAYS LAST
 }
 
